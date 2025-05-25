@@ -1,0 +1,67 @@
+## Java
+
+*.class
+*.war
+*.ear
+hs_err_pid*
+
+## Android Studio and Intellij and Android in general
+
+.idea/
+
+## Eclipse
+
+.classpath
+.project
+.metadata/
+/buildSrc/bin/
+/BytecodeManipExampleOnePlusOneIsThree/bin/
+/consumer/bin/
+*.tmp
+*.bak
+*.swp
+*~.nib
+.settings/
+.loadpath
+.externalToolBuilders/
+*.launch
+
+## NetBeans
+
+/nbproject/private/
+/buildSrc/nbproject/private/
+/BytecodeManipExampleOnePlusOneIsThree/nbproject/private/
+/consumer/nbproject/private/
+
+/nbbuild/
+/buildSrc/nbbuild/
+/BytecodeManipExampleOnePlusOneIsThree/nbbuild/
+/consumer/nbbuild/
+
+/dist/
+/buildSrc/dist/
+/BytecodeManipExampleOnePlusOneIsThree/dist/
+/consumer/dist/
+
+/nbdist/
+/buildSrc/nbdist/
+/BytecodeManipExampleOnePlusOneIsThree/nbdist/
+/consumer/nbdist/
+
+nbactions.xml
+nb-configuration.xml
+
+## Gradle
+
+/local.properties
+.gradle/
+gradle-app.setting
+/build/
+/build-cache/
+/buildSrc/build/
+/BytecodeManipExampleOnePlusOneIsThree/build/
+/consumer/build/
+
+## OS Specific
+.DS_Store
+Thumbs.db

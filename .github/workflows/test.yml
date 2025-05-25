@@ -1,0 +1,77 @@
+name: Test
+
+on:
+  push:
+    branches: [ "master" ]
+    paths-ignore:
+      - .gitignore
+      - LICENSE
+      - README.md
+
+jobs:
+  matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: set-matrix
+        run: |
+          TASKS=$(echo $(cat .github/workflows/java_version_matrix.json) | sed 's/ //g' )
+          echo "matrix=$TASKS" >> $GITHUB_OUTPUT
+
+  test-linux:
+    name: "[ubuntu-latest] Java ${{ matrix.java }}"
+    needs: [ matrix ]
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java: ${{ fromJson(needs.matrix.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and Test
+        uses: ./.github/actions/test
+        with:
+          java: ${{ matrix.java }}
+
+  test-mac:
+    name: "[${{ matrix.os }}] Java ${{ matrix.java }}"
+    needs: [ matrix ]
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        # macOS-latest is ARM, as per https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners
+        os: [ macOS-13, macOS-latest ]
+        java: ${{ fromJson(needs.matrix.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and Test
+        uses: ./.github/actions/test
+        with:
+          java: ${{ matrix.java }}
+
+  test-windows:
+    name: "[windows-latest] Java ${{ matrix.java }}"
+    needs: [ matrix ]
+
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        java: ${{ fromJson(needs.matrix.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and Test
+        uses: ./.github/actions/test
+        with:
+          java: ${{ matrix.java }}
